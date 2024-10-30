@@ -1,0 +1,1 @@
+In order to run, use the generate_gene_image function within the Python file.
