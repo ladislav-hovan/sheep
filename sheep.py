@@ -5,9 +5,10 @@ import requests
 from io import BytesIO
 
 
-def download_data(gene, dataset='cell_RNA_pancreatic_cancer', cell_lines=None):
+def download_data(gene, dataset='cell_RNA_pancreatic_cancer', cell_lines=None,
+    thpa_url='http://www.proteinatlas.org/'):
     # Use the HPA API to request the chosen gene and dataset
-    r = requests.get('http://www.proteinatlas.org/api/search_download.php?'
+    r = requests.get(f'{thpa_url}api/search_download.php?'
         f'search={gene}&format=tsv&columns=g,gs,{dataset}&compress=no')
     # Convert into pandas DataFrame
     data = pd.read_csv(BytesIO(r.content), sep='\t')
@@ -42,6 +43,9 @@ def download_data(gene, dataset='cell_RNA_pancreatic_cancer', cell_lines=None):
     return data.loc[ind, cell_lines]
 
 
+FIG_HEIGHT = 4
+FIG_WIDTH_PER_COL = 0.8 
+
 def generate_gene_image(gene, dataset='cell_RNA_pancreatic_cancer',
     bg_dataset=None, cell_lines=None, figsize=None, sort=False, save_to=None):
     # Download the cell line data for the gene
@@ -58,7 +62,7 @@ def generate_gene_image(gene, dataset='cell_RNA_pancreatic_cancer',
         to_plot.sort_values(inplace=True, ascending=False)
     # Calculate a default figure size if one was not provided
     if figsize is None:
-        figsize = (0.8*len(to_plot),4)
+        figsize = (FIG_WIDTH_PER_COL*len(to_plot),FIG_HEIGHT)
     # Generate a figure
     fig, ax = plt.subplots(figsize=figsize)
     # Positions for the bars on the plot
