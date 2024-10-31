@@ -14,7 +14,31 @@ def download_data(
     cell_lines: Optional[Iterable[str]] = None,
     thpa_url: str = 'http://www.proteinatlas.org/',
 ) -> pd.DataFrame:
-    
+    """
+    Queries the Human Protein Atlas API to retrieve expression data 
+    for a given gene from one of their datasets. The data are then 
+    optionally filtered to only include the cell lines provided.
+
+    Parameters
+    ----------
+    gene : str
+        Name of the gene of interest
+    dataset : str, optional
+        Dataset to retrieve the data from, by default 
+        'cell_RNA_pancreatic_cancer'
+    cell_lines : Optional[Iterable[str]], optional
+        Iterable with the names of the cell lines of interest
+        or None to use all available ones, by default None
+    thpa_url : str, optional
+        URL of the Human Protein Atlas website, by default
+        'http://www.proteinatlas.org/'
+
+    Returns
+    -------
+    pd.DataFrame
+        Retrieved and filtered pandas DataFrame
+    """
+
     # Use the HPA API to request the chosen gene and dataset
     r = requests.get(f'{thpa_url}api/search_download.php?'
         f'search={gene}&format=tsv&columns=g,gs,{dataset}&compress=no')
@@ -63,6 +87,39 @@ def generate_gene_image(
     sort: bool = False, 
     save_to: Optional[str] = None
 ) -> Tuple[plt.Figure, plt.Axes]:
+    """
+    Generates a bar plot of expression levels for a gene in different
+    cell types based on data retrieved from the Human Protein Atlas.
+    Can also sort the data by expression and add a background level
+    corresponding to healthy tissue. The resulting figure can be saved.
+
+    Parameters
+    ----------
+    gene : str
+        Name of the gene of interest
+    dataset : str, optional
+        Dataset to retrieve the data from, by default 
+        'cell_RNA_pancreatic_cancer'
+    bg_dataset : Optional[str], optional
+        Dataset to retrieve the background data from or None to not
+        include any background, by default None
+    cell_lines : Optional[Iterable[str]], optional
+        Iterable with the names of the cell lines of interest or 
+        None to use all available ones, by default None
+    figsize : Optional[Tuple[float, float]], optional
+        Tuple with the figure dimensions or None to use an estimate 
+        based on the number of cell lines, by default None
+    sort : bool, optional
+        Whether to sort the values by expression descending, 
+        by default False
+    save_to : Optional[str], optional
+        File path for saving or None to not save, by default None
+
+    Returns
+    -------
+    Tuple[plt.Figure, plt.Axes]
+        Resulting Figure and Axes objects
+    """
 
     # Download the cell line data for the gene
     to_plot = download_data(gene, dataset, cell_lines)
