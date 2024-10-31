@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["sheep"]
+
+[project]
+name = "sheep-example"
+authors = [
+    {name = "Ladislav Hovan", email = "ladislav.hovan@ncmm.uio.no"},
+]
+version = "0.0.1"
+description = "A package to generate images comparing gene expression across cell lines."
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+    "matplotlib",
+    "pandas",
+]
