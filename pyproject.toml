@@ -17,4 +17,5 @@ license = {text = "MIT"}
 dependencies = [
     "matplotlib",
     "pandas",
+    "requests",
 ]
