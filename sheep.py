@@ -32,7 +32,7 @@ def download_data(gene, dataset='cell_RNA_pancreatic_cancer', cell_lines=None,
 
 
 FIG_HEIGHT = 4
-FIG_WIDTH_PER_COL = 0.8 
+FIG_WIDTH_PER_COL = 0.8
 
 def generate_gene_image(gene, dataset='cell_RNA_pancreatic_cancer',
     bg_dataset=None, cell_lines=None, figsize=None, sort=False, save_to=None):
