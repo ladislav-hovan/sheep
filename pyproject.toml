@@ -10,7 +10,7 @@ name = "sheep-example"
 authors = [
     {name = "Ladislav Hovan", email = "ladislav.hovan@ncmm.uio.no"},
 ]
-version = "0.0.1"
+version = "0.0.3"
 description = "A package to generate images comparing gene expression across cell lines."
 readme = "README.md"
 license = {text = "MIT"}
