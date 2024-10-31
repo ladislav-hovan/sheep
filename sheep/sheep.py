@@ -1,40 +1,19 @@
 ### Imports ###
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 import requests
 
+from io import BytesIO
 from typing import Optional, Iterable, Tuple
 
-from io import BytesIO
 
 ### Functions ###
 def download_data(
     gene: str, 
-    dataset: str = 'cell_RNA_pancreatic_cancer', 
-    cell_lines: Optional[Iterable[str]] = None
+    dataset: str = 'cell_RNA_pancreatic_cancer',
+    cell_lines: Optional[Iterable[str]] = None,
 ) -> pd.DataFrame:
-    """
-    Queries the Human Protein Atlas API to retrieve expression data 
-    for a given gene from one of their datasets. The data are then 
-    optionally filtered to only include the cell lines provided.
-
-    Parameters
-    ----------
-    gene : str
-        The name of the gene of interest
-    dataset : str, optional
-        The dataset to retrieve the data from, by default 
-        'cell_RNA_pancreatic_cancer'
-    cell_lines : Optional[Iterable[str]], optional
-        The iterable with the names of the cell lines of interest or 
-        None to use all available ones, by default None
-
-    Returns
-    -------
-    pd.DataFrame
-        The retrieved and filtered pandas DataFrame
-    """
-
+    
     # Use the HPA API to request the chosen gene and dataset
     r = requests.get('http://www.proteinatlas.org/api/search_download.php?'
         f'search={gene}&format=tsv&columns=g,gs,{dataset}&compress=no')
@@ -80,39 +59,6 @@ def generate_gene_image(
     sort: bool = False, 
     save_to: Optional[str] = None
 ) -> Tuple[plt.Figure, plt.Axes]:
-    """
-    Generates a bar plot of expression levels for a gene in different
-    cell types based on data retrieved from the Human Protein Atlas.
-    Can also sort the data by expression and add a background level
-    corresponding to healthy tissue. The resulting figure can be saved.
-
-    Parameters
-    ----------
-    gene : str
-        The name of the gene of interest
-    dataset : str, optional
-        The dataset to retrieve the data from, by default 
-        'cell_RNA_pancreatic_cancer'
-    bg_dataset : Optional[str], optional
-        The dataset to retrieve the background data from or None to not
-        include any background, by default None
-    cell_lines : Optional[Iterable[str]], optional
-        The iterable with the names of the cell lines of interest or 
-        None to use all available ones, by default None
-    figsize : Optional[Tuple[float, float]], optional
-        The tuple with the figure dimensions or None to use an estimate 
-        based on the number of cell lines, by default None
-    sort : bool, optional
-        Whether to sort the values by expression descending, 
-        by default False
-    save_to : Optional[str], optional
-        The file path for saving or None to not save, by default None
-
-    Returns
-    -------
-    Tuple[plt.Figure, plt.Axes]
-        The resulting Figure and Axes objects
-    """
 
     # Download the cell line data for the gene
     to_plot = download_data(gene, dataset, cell_lines)
