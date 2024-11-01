@@ -9,7 +9,7 @@ from typing import Optional, Iterable, Tuple
 
 ### Functions ###
 def download_data(
-    gene: str, 
+    gene: str,
     dataset: str = 'cell_RNA_pancreatic_cancer',
     cell_lines: Optional[Iterable[str]] = None,
     thpa_url: str = 'http://www.proteinatlas.org/',
