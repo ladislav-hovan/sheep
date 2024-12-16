@@ -81,11 +81,6 @@ Room for improvement:
 - Refactoring
 - Command line script
 
-To do:
-- Unit tests
-- CI/CD
-- Dockerfile
-
 
 ## Acknowledgements
 Many thanks to the members of the
