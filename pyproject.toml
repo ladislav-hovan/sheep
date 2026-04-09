@@ -16,7 +16,7 @@ readme = "README.md"
 license = {text = "MIT"}
 dependencies = [
     "matplotlib>=3.10,<4",
-    "pandas>=3.0,<4",
+    "pandas>=2.0,<4",
     "requests>=2.30,<3",
 ]
 
