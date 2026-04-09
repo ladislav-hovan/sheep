@@ -8,14 +8,33 @@ packages = ["sheep"]
 [project]
 name = "sheep-example"
 authors = [
-    {name = "Ladislav Hovan", email = "ladislav.hovan@ncmm.uio.no"},
+    {name = "Ladislav Hovan", email = "ladislav.hovan@ncmbm.uio.no"},
 ]
-version = "0.0.3"
+version = "0.0.4"
 description = "A package to generate images comparing gene expression across cell lines."
 readme = "README.md"
 license = {text = "MIT"}
 dependencies = [
-    "matplotlib",
-    "pandas",
-    "requests",
+    "matplotlib>=3.10,<4",
+    "pandas>=3.0,<4",
+    "requests>=2.30,<3",
 ]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.dependencies]
+python = "3.11.*"
+
+[tool.pixi.pypi-dependencies]
+sheep-example = { path = ".", editable = true }
+
+[tool.pixi.environments]
+sheep-dev = ["sheep-dev"]
+
+[tool.pixi.feature.sheep-dev.dependencies]
+pytest = ">=8.0.0"
+
+[tool.pixi.feature.sheep-dev.tasks]
+test = "pytest"
