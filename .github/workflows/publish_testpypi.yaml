@@ -1,9 +1,9 @@
 name: Publishing a tagged version of SHEEP on TestPyPI
 
 on:
-  push:
-    tags:
-    - v*
+  release:
+    types:
+    - released
 
 jobs:
   pypi-publish:
